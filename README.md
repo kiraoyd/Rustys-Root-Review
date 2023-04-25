@@ -1,6 +1,14 @@
 # Rustys Root Review
 
+A web microservice built in Rust for the in-development Animal Crossing New Horizons Turnip Trading site: Tuber Trader. 
 
+https://github.com/kiraoyd/tuberTrader
+
+This microservice will query Tuber Trader's Database for specific Selling Price data and run simple analysis on that data. 
+
+More will be added as development proceeds. Repo is currently Private and will be made public eventually.
+
+Leaving the template GitLab readme below in case I need any of it (this is just my quick repo creation for the Project Proposal).
 
 ## Getting started
 
