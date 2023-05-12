@@ -1,0 +1,17 @@
+version: '3'
+services:
+  auth_rs:
+    container_name: root_review
+    build: ./root_review/
+    restart: always
+    ports:
+      - "3333:3333"
+    environment:
+      - DATABASE_URL=postgres://tuber:tuber@postgres/tuber
+      - AUTH_SECRET=superSecret
+    depends_on: #This is a lie
+      - postgres
+
+volumes:
+  db:
+    driver: local
