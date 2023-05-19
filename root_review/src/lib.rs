@@ -1,5 +1,5 @@
-//use axum::http::StatusCode;
-//use axum::response::{IntoResponse, Response};
+use axum::http::StatusCode;
+use axum::response::{IntoResponse, Response};
 //use jsonwebtoken::{DecodingKey, EncodingKey};
 //use serde::{Deserialize, Serialize};
 
@@ -14,5 +14,32 @@ impl EnvOptions {
         EnvOptions {
             database_url: std::env::var("DATABASE_URL").expect("Missing env var for DATABASE_URL"),
         }
+    }
+}
+
+//lets make an error type wrapper for convinience
+//AppError contains one of the anyhow structs, 'Error'
+pub struct AppError(anyhow::Error);
+
+
+//here we can implement a method for our AppError struct, that tells axum how to convert AppError into a resposne
+//that the server can send back
+impl IntoResponse for AppError {
+    fn into_response(self) -> Response {
+        (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            format!("Something went wrong: {}", self.0), //show the error message in the AppError
+        )
+            .into_response()
+    }
+}
+
+//TODO what the heck is actually going on here?
+impl<E> From<E> for AppError
+where
+    E: Into<anyhow::Error>,
+{
+    fn from(err: E) -> Self {
+        Self(err.into())
     }
 }
