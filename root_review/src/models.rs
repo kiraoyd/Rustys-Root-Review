@@ -40,8 +40,8 @@ pub mod models {
         pub id: i32,
         pub name: String,
         pub email: String,
-        password: String,
-        role: String,
+        pub password: String,
+        pub role: String,
         //in DB is an enum type
         pub created_at: String,
         //no date type in rust, so bring it in as a String
