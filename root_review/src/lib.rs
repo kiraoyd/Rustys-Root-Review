@@ -1,7 +1,7 @@
 use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
 //use jsonwebtoken::{DecodingKey, EncodingKey};
-//use serde::{Deserialize, Serialize};
+
 
 //allow access directly to the .env file
 pub struct EnvOptions {
@@ -39,7 +39,6 @@ impl<E> From<E> for AppError
 where
     E: Into<anyhow::Error>,
 {
-    fn from(err: E) -> Self {
-        Self(err.into())
+    fn from(err: E) -> Self {Self(err.into())
     }
 }

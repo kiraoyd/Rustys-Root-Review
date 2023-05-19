@@ -20,6 +20,7 @@ use tracing::trace;
 //bring in routes
 mod handlers;
 mod routes;
+mod models;
 use routes::routes;
 
 //Set up the axum server to run
