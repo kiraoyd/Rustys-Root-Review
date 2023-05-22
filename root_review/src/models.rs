@@ -1,5 +1,4 @@
-
-pub mod models {
+pub mod tuber_tables {
     use serde::{Deserialize, Serialize};
 
     #[derive(sqlx::FromRow, Serialize, Deserialize)]
@@ -48,15 +47,16 @@ pub mod models {
         pub updated_at: String,
     }
 
+    //TODO update feilds to match DB
     #[derive(sqlx::FromRow, Serialize, Deserialize)]
     pub struct IPHistory {
-        pub id: i32,
+        //pub id: i32,
         pub ip: String,
-        pub user: i32,
+        //pub user: i32,
         //maps to a user ID
-        pub created_at: String,
+        //pub created_at: String,
         //no date type in rust, so bring it in as a String
-        pub updated_at: String,
+        //pub updated_at: String,
     }
 
     #[derive(sqlx::FromRow, Serialize, Deserialize)]

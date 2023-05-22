@@ -2,7 +2,6 @@ use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
 //use jsonwebtoken::{DecodingKey, EncodingKey};
 
-
 //allow access directly to the .env file
 pub struct EnvOptions {
     pub database_url: String,
@@ -21,7 +20,6 @@ impl EnvOptions {
 //AppError contains one of the anyhow structs, 'Error'
 pub struct AppError(anyhow::Error);
 
-
 //here we can implement a method for our AppError struct, that tells axum how to convert AppError into a resposne
 //that the server can send back
 impl IntoResponse for AppError {
@@ -39,6 +37,7 @@ impl<E> From<E> for AppError
 where
     E: Into<anyhow::Error>,
 {
-    fn from(err: E) -> Self {Self(err.into())
+    fn from(err: E) -> Self {
+        Self(err.into())
     }
 }

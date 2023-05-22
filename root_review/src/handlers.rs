@@ -1,27 +1,30 @@
-
 use axum::http::StatusCode;
 use axum::{Extension, Json};
-use root_review::{AppError};
+use root_review::AppError;
 //use anyhow::Error;
+//Use some SERDE here probably, to convert and deal with JSON
 
 use sqlx::PgPool;
 //use tracing::log::{error, info};
+use crate::models::tuber_tables::IPHistory;
 
-//TODO how to bring in the models from models.rs?
-use crate::models::{models};
-//Use some SERDE here probably, to convert and deal with JSON
-
-//TODO write an actual route!
-pub async fn get_users(
-    Extension(connection): Extension<PgPool>, Json(credentials): Json<User>,
-) ->  Result<StatusCode, AppError> {
-    let res = try_get_user(&connection, &credentials).await?;
+pub async fn get_iph(
+    Extension(connection): Extension<PgPool>
+) -> Result<(StatusCode, Json<Vec<IPHistory>>), AppError> {
+    let res = try_get_iph(&connection).await?;
     Ok(res)
 }
 
-async fn try_get_user(connection: &PgPool, credentials: &User) -> Result<StatusCode, anyhow::Error> {
-    let users: Vec<User> = sqlx::query_as!(User, "SELECT id, name FROM user").fetch_all(connection).await?;
-    Ok(users)
+//Test route, to see if we can access the DB correctly and make a hit
+async fn try_get_iph(
+    connection: &PgPool
+    //below, the result will carry the status code, and the Json of a Vec of IPHistory struct types
+    //or it will carry an anyhow::Error
+) -> Result<(StatusCode, Json<Vec<IPHistory>>), anyhow::Error> {
+    //change to fetch_all at some point, store in a Vec<SellingPriceHistory>
+    let iph: Vec<IPHistory> = sqlx::query_as!(IPHistory, "SELECT ip FROM ip_history")
+        .fetch_all(connection)
+        .await?;
+
+    Ok((StatusCode::OK, Json(iph)))
 }
-
-
