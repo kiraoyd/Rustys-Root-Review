@@ -1,5 +1,6 @@
 //bring in the handlers crate
 use crate::handlers::get_iph;
+use crate::handlers::get_big_spender;
 //use axum::routing::post;
 use axum::routing::get;
 use axum::Router;
@@ -8,5 +9,5 @@ use axum::Router;
 //Returns a closure that creates a new router with our handlers attached
 pub fn routes() -> Router {
     Router::new().route("/", get(get_iph))
-    //.route("", http(other_route))
+    .route("/spender", get(get_big_spender))
 }
