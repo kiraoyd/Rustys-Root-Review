@@ -78,4 +78,12 @@ pub mod tuber_tables {
         //no date type in rust, so bring it in as a String
         pub updated_at: String,
     }
+
+    #[derive(sqlx::FromRow, Serialize, Deserialize)]
+    pub struct SpenderReply {
+        pub island: String,
+        pub turnip_quantity: i32,
+        pub price_paid: i32,
+        pub total_spent: i64,
+    }
 }

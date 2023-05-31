@@ -41,3 +41,11 @@ where
         Self(err.into())
     }
 }
+
+
+pub struct SpenderReply {
+    pub island: String,
+    pub turnip_quantity: i32,
+    pub price_paid: i32,
+    pub total_spent: i64,
+}

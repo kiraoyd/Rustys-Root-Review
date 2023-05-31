@@ -1,12 +1,14 @@
 use axum::http::StatusCode;
 use axum::{Extension, Json};
 use root_review::AppError;
+//use root_review::SpenderReply;
 //use tracing::log::Record; //needed to use query! to catch the results
 
 use sqlx::PgPool;
 //use tracing::log::{error, info};
 use crate::models::tuber_tables::IPHistory;
 use crate::models::tuber_tables::Profile;
+use crate::models::tuber_tables::SpenderReply;
 
 
 pub async fn get_iph(
@@ -33,7 +35,7 @@ async fn try_get_iph(
 
 pub async fn get_big_spender(
     Extension(connection): Extension<PgPool>
-) -> Result<(StatusCode, Json<Profile>), AppError>{
+) -> Result<(StatusCode, Json<SpenderReply>), AppError>{
     let res = try_biggest_spender(&connection).await?;
     Ok(res)
 }
@@ -43,7 +45,7 @@ pub async fn get_big_spender(
 //The SQL query text has to match the Rust structs representing them
 async fn try_biggest_spender(
     connection: &PgPool
-) -> Result<(StatusCode, Json<Profile>), anyhow::Error>{
+) -> Result<(StatusCode, Json<SpenderReply>), anyhow::Error>{
 
     //get all islands from Profile table, collect into a Vector
     //TODO query! returns a Record type....
@@ -55,15 +57,24 @@ async fn try_biggest_spender(
 
     //from this vector of profile stucts, calculate each islands bells spent on turnips, and save the max
     let mut biggest_spender: Profile = all_islands[0].clone(); //assume the first one is the biggest
-   // let mut biggest = 0; //will hold the spending of the current biggest spender
-    //let mut spent = 0;
+    let mut spent: i64 = 0;
     //I want to save the profile of the biggest spender
     for island in all_islands {
-        let biggest = biggest_spender.price_paid * biggest_spender.turnips_held;
-        let spent = island.price_paid * island.turnips_held;
+        let biggest: i64 = biggest_spender.price_paid as i64 * biggest_spender.turnips_held as i64;
+        spent = island.price_paid as i64 * island.turnips_held as i64;
         if spent > biggest {
             biggest_spender = island.clone();
         }
     }
-    Ok((StatusCode::OK, Json(biggest_spender)))
+
+    //make a new Spender_reply struct and populate with info from the biggest spender and the calculated spending amount
+    let reply = SpenderReply {
+        island: biggest_spender.island_name.clone(),
+        turnip_quantity: biggest_spender.turnips_held.clone(),
+        price_paid: biggest_spender.price_paid.clone(),
+        total_spent: spent,
+    };
+
+    //package up the relevant info from the Profile, into a special struct to send back
+    Ok((StatusCode::OK, Json(reply)))
 }
