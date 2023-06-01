@@ -1,3 +1,7 @@
+///All code here provided courtesy of Casey Bailey from this repo: https://github.com/kiraoyd/doggr_w23/tree/master/auth_rs
+///With the exception of the default implementation for EnvOptions (which was provided by clippy)
+///Notes on my understanding of how this code works can be found in JOURNAL.md, and in the doc comments
+
 use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
 //use jsonwebtoken::{DecodingKey, EncodingKey};
@@ -13,6 +17,13 @@ impl EnvOptions {
         EnvOptions {
             database_url: std::env::var("DATABASE_URL").expect("Missing env var for DATABASE_URL"),
         }
+    }
+}
+
+//clippy suggested I add this:
+impl Default for EnvOptions {
+    fn default() -> Self {
+        Self::new()
     }
 }
 

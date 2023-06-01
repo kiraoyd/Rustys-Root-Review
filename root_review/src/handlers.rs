@@ -16,8 +16,9 @@ use sqlx::PgPool;
 use crate::models::tuber_tables::IPHistory;
 use crate::models::tuber_tables::Profile;
 //use crate::models::tuber_tables::User;
-use crate::models::tuber_tables::SpenderReply;
-use crate::models::tuber_tables::MaxProfitsReply;
+
+use crate::packages::reply_data::SpenderReply;
+use crate::packages::reply_data::MaxProfitsReply;
 
 ///public GET route to retrieve all IP numbers from the IPHistory table
 ///No use beyond testing a connection to the DB and res/reply success
@@ -64,8 +65,6 @@ async fn try_biggest_spender(
     let all_islands: Vec<Profile> = sqlx::query_as!(Profile, "SELECT id, island_name, picture, turnips_held, price_paid, owner_id FROM profile")
         .fetch_all(connection)
         .await?;
-
-    //let total_islands = all_islands.len();
 
     //from this vector of profile stucts, calculate each islands bells spent on turnips, and save the max
     let mut biggest_spender: Profile = all_islands[0].clone(); //assume the first one is the biggest
@@ -121,12 +120,13 @@ async fn try_max_profits(
     //parse out the Params into i32's
     let num_selling_price = i32::from_str(&selling_price).expect("error parsing");
     let num_island_id = i32::from_str(&island_id).expect("error parsing");
+
     //Query to find the island in question, then calculate the profits based on the given selling price
     let requested_island = sqlx::query!("SELECT island_name, turnips_held, price_paid, owner_id FROM profile WHERE id = $1", num_island_id)
         .fetch_one(connection).await?;
 
-    let owner_id: i32 = requested_island.owner_id;
     //use the owner_id number in the biggest_spender, to query the User table and find out the name of the user that owns the biggest spending island
+    let owner_id: i32 = requested_island.owner_id;
     let owner = sqlx::query!("SELECT name FROM users WHERE id = $1", owner_id).fetch_one(connection).await?;
 
     let spent:i64 = (requested_island.turnips_held * requested_island.price_paid).into();
@@ -138,7 +138,7 @@ async fn try_max_profits(
         profit_result = false;
     }
 
-    //make a new MaxProfitsReply struct and populate with info f
+    //make a new MaxProfitsReply struct and populate with info
     let reply = MaxProfitsReply {
         island: requested_island.island_name,
         turnip_quantity: requested_island.turnips_held,
@@ -148,6 +148,80 @@ async fn try_max_profits(
         potential_profits: profits,
         selling_price: num_selling_price,
         profited: profit_result,
+    };
+
+    Ok((StatusCode::OK, Json(reply)))
+}
+
+///public GET route to retrieve the island that will reap the largest profit given a specified selling price value
+///Selling price value to work with is provded as a param in the route URL
+//route that captures from the URL using Path and calculates max_profits possible for the given selling price for an island
+pub async fn get_most_profitable_island(
+    Extension(connection): Extension<PgPool>, Path(selling_price): Path<String>,
+) -> Result<(StatusCode, Json<MaxProfitsReply>), AppError>{
+    let res = try_most_profitable_island(&connection, selling_price).await?;
+    Ok(res)
+}
+
+
+///Implements the get_most_profitable_island route functionality
+/// Extracts a specified selling price from the URL params, queries the Profile table to get all island info
+/// Uses selling price to calculate possible profits for all islands at that price
+/// Tracks the island profile with the maximum profit potential, and the values representing what that island spent and what the profit value is
+/// Stores the results in a MaxProfitsReply struct to be returned as a JSON with the reply
+async fn try_most_profitable_island(
+    connection: &PgPool, selling_price : String, //pattern matching!
+) -> Result<(StatusCode, Json<MaxProfitsReply>), anyhow::Error> {
+
+    //parse out the Param into i32
+    let num_selling_price = i32::from_str(&selling_price).expect("error parsing");
+
+    //get all islands from Profile table, collect into a Vector
+    let all_islands: Vec<Profile> = sqlx::query_as!(Profile, "SELECT id, island_name, picture, turnips_held, price_paid, owner_id FROM profile")
+        .fetch_all(connection)
+        .await?;
+
+    //iterate through the islands, calculate the profits made on the given selling price, save the island with the highest profit
+    let mut most_profitable: Profile = all_islands[0].clone(); //assume the first one makes the most in profit
+    let mut spent: i64 = (most_profitable.turnips_held * most_profitable.price_paid).into();
+    let mut earned: i64 = (most_profitable.turnips_held * num_selling_price).into();
+    let mut profits = earned - spent;
+
+    let mut max_profits: i64 = profits;
+    let mut save_spent: i64 = spent;
+
+    for island in all_islands {
+        spent = (island.turnips_held * island.price_paid).into();
+        earned = (island.turnips_held * num_selling_price).into();
+        profits = earned - spent;
+        if profits > max_profits {
+            max_profits = profits;
+            save_spent = spent;
+            most_profitable = island.clone();
+        }
+    }
+
+
+    //use the owner_id number in the biggest_spender, to query the User table and find out the name of the user that owns the biggest spending island
+    let owner_id: i32 = most_profitable.owner_id;
+    let owner = sqlx::query!("SELECT name FROM users WHERE id = $1", owner_id).fetch_one(connection).await?;
+
+    //it might be possible that ALL islands were at a loss, so still important to mark this bool
+    let mut profitable = true;
+    if max_profits <= 0{
+        profitable = false;
+    }
+
+    //make a new MaxProfitsReply struct and populate with info
+    let reply = MaxProfitsReply {
+        island: most_profitable.island_name,
+        turnip_quantity: most_profitable.turnips_held,
+        price_paid: most_profitable.price_paid,
+        total_spent: save_spent,
+        owner_name: owner.name,
+        potential_profits: max_profits,
+        selling_price: num_selling_price,
+        profited: profitable,
     };
 
     Ok((StatusCode::OK, Json(reply)))

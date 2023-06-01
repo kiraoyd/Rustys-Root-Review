@@ -1,3 +1,12 @@
+//! Rusty's Root Review: a selection of analytic GET routes for Tuber Trader's Island Profiles
+//! Author: Kira Klingenberg (with some code pulled directly from Doggr_w23's auth_rs microservice, by Casey Bailey)
+//! Written for: Bart Massey's Programming in Rust, PSU Spring 2023
+//! Last update: 6/1/2023
+
+
+///The majority of the code here in main.rs provided courtesy of Casey Bailey from this repo: https://github.com/kiraoyd/doggr_w23/tree/master/auth_rs
+///Notes on my understanding of how this code works can be found in JOURNAL.md, and in the doc comments
+
 use anyhow::Result as AnyResult;
 use dotenvy::dotenv;
 use root_review::EnvOptions;
@@ -9,7 +18,6 @@ use sqlx::postgres::PgPoolOptions;
 use sqlx::PgPool;
 
 //use root_review::EnvOptions;
-
 use axum::Extension;
 use std::net::SocketAddr;
 use tower_http::cors::{Any, CorsLayer};
@@ -17,14 +25,16 @@ use tracing::log::info;
 use tracing::trace;
 //use tracing_subscriber;
 
-//bring in routes
-mod handlers;
-mod models;
-mod routes;
+//all extra files that are not main.rs and lib.rs need to be published at the top of the crate module tree, here or in lib.rs
+pub mod handlers;
+pub mod models;
+pub mod routes;
+pub mod packages;
+
 use routes::routes;
 
 //Set up the axum server to run
-
+///Sets up the axum server to connect to the DB, layers on cors middlewares, our Router, and the DB connection
 async fn run() -> AnyResult<()> {
     //here we get back out pool of DB connections
     let connection = establish_connection().await?;
@@ -45,7 +55,8 @@ async fn run() -> AnyResult<()> {
     Ok(())
 }
 
-//Just creates DB connection
+///Establishes a pool of connections to Tuber Trader's DB
+/// DB information stored in the .env file
 pub async fn establish_connection() -> AnyResult<PgPool> {
     info!("Establishing Database connection...");
 
@@ -66,7 +77,8 @@ pub async fn establish_connection() -> AnyResult<PgPool> {
     Ok(pool)
 }
 
-//Run the server, start it listening
+///Runs the server, start it listening
+/// Sets up a tokio runtime
 #[tokio::main]
 async fn main() -> AnyResult<()> {
     //set up dotenv
