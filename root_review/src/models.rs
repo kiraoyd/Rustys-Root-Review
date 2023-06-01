@@ -31,7 +31,7 @@ pub mod tuber_tables {
         #[sqlx(rename = "pricePaid")]
         pub price_paid: i32,
         //this is an SQL reference to another table
-        //pub owner: User,
+        pub owner_id: i32,
         //maps to an id of a user
         //pub created_at: String,
         //no date type in rust, so bring it in as a String
@@ -85,5 +85,6 @@ pub mod tuber_tables {
         pub turnip_quantity: i32,
         pub price_paid: i32,
         pub total_spent: i64,
+        pub owner_name: String,
     }
 }

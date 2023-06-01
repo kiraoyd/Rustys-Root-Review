@@ -1,13 +1,14 @@
 use axum::http::StatusCode;
 use axum::{Extension, Json};
 use root_review::AppError;
-//use root_review::SpenderReply;
+
 //use tracing::log::Record; //needed to use query! to catch the results
 
 use sqlx::PgPool;
 //use tracing::log::{error, info};
 use crate::models::tuber_tables::IPHistory;
 use crate::models::tuber_tables::Profile;
+use crate::models::tuber_tables::User;
 use crate::models::tuber_tables::SpenderReply;
 
 
@@ -32,7 +33,7 @@ async fn try_get_iph(
     Ok((StatusCode::OK, Json(iph)))
 }
 
-
+//localhost:3333/spender
 pub async fn get_big_spender(
     Extension(connection): Extension<PgPool>
 ) -> Result<(StatusCode, Json<SpenderReply>), AppError>{
@@ -48,8 +49,7 @@ async fn try_biggest_spender(
 ) -> Result<(StatusCode, Json<SpenderReply>), anyhow::Error>{
 
     //get all islands from Profile table, collect into a Vector
-    //TODO query! returns a Record type....
-    let all_islands: Vec<Profile> = sqlx::query_as!(Profile, "SELECT id, island_name, picture, turnips_held, price_paid FROM profile")
+    let all_islands: Vec<Profile> = sqlx::query_as!(Profile, "SELECT id, island_name, picture, turnips_held, price_paid, owner_id FROM profile")
         .fetch_all(connection)
         .await?;
 
@@ -67,12 +67,17 @@ async fn try_biggest_spender(
         }
     }
 
+    let owner_id: i32 = biggest_spender.owner_id;
+
+    //use the owner_id number in the biggest_spender, to query the User table and find out the name of the user that owns the biggest spending island
+    let owner = sqlx::query!("SELECT name FROM users WHERE id = $1", owner_id).fetch_one(connection).await?;
     //make a new Spender_reply struct and populate with info from the biggest spender and the calculated spending amount
     let reply = SpenderReply {
         island: biggest_spender.island_name.clone(),
         turnip_quantity: biggest_spender.turnips_held.clone(),
         price_paid: biggest_spender.price_paid.clone(),
         total_spent: spent,
+        owner_name: owner.name,
     };
 
     //package up the relevant info from the Profile, into a special struct to send back
