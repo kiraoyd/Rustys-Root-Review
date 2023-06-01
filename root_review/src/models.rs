@@ -3,7 +3,7 @@
 pub mod tuber_tables {
     use serde::{Deserialize, Serialize};
     use std::clone::Clone;
-    use uuid::Uuid;
+    //use uuid::Uuid;
 
     #[derive(sqlx::FromRow, Serialize, Deserialize)]
     //struct holds info from the SellingPriceHistory table in our DB
@@ -24,7 +24,7 @@ pub mod tuber_tables {
     #[derive(sqlx::FromRow, Serialize, Deserialize, Clone)]
     pub struct Profile {
         pub id: i32,
-        #[sqlx(rename = "islandName")]
+        //#[sqlx(rename = "islandName")]
         pub island_name: String,
         pub picture: String,
         #[sqlx(rename = "turnipsHeld")]
@@ -97,7 +97,8 @@ pub mod tuber_tables {
         pub total_spent: i64,
         pub owner_name: String,
         pub potential_profits: i64,
-        pub selling_price: uuid,
+        pub selling_price: i32,
+        pub profited: bool,
     }
 
 

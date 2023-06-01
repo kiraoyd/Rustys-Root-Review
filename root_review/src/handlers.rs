@@ -1,11 +1,16 @@
+//! Handlers for Rusty's Root Review routes
+//! Kira Klingenberg
+//! Written for: Bart Massey's Programming in Rust, PSU Spring 2023
+//! Last update: 6/1/2023
+
 use axum::http::StatusCode;
 use axum::{Extension, Json};
 use root_review::AppError;
 use axum::extract::Path;
-use uuid::Uuid;
+//use uuid::Uuid;
+use std::str::FromStr;
 
 //use tracing::log::Record; //needed to use query! to catch the results
-
 use sqlx::PgPool;
 //use tracing::log::{error, info};
 use crate::models::tuber_tables::IPHistory;
@@ -14,7 +19,8 @@ use crate::models::tuber_tables::Profile;
 use crate::models::tuber_tables::SpenderReply;
 use crate::models::tuber_tables::MaxProfitsReply;
 
-
+///public GET route to retrieve all IP numbers from the IPHistory table
+///No use beyond testing a connection to the DB and res/reply success
 pub async fn get_iph(
     Extension(connection): Extension<PgPool>
 ) -> Result<(StatusCode, Json<Vec<IPHistory>>), AppError> {
@@ -22,8 +28,8 @@ pub async fn get_iph(
     Ok(res)
 }
 
-//Test route, to see if we can access the DB correctly and make a hit
-//grabs all the IPH ip values
+///Implements the get_iph route functionality
+/// Retrieves all IP values from the database
 async fn try_get_iph(
     connection: &PgPool
     //below, the result will carry the status code, and the Json of a Vec of IPHistory struct types
@@ -37,7 +43,8 @@ async fn try_get_iph(
     Ok((StatusCode::OK, Json(iph)))
 }
 
-
+///public GET route to retrieve all islands info
+/// calculates how much each spent on turnips currently, and return the info for the biggest spender
 pub async fn get_big_spender(
     Extension(connection): Extension<PgPool>
 ) -> Result<(StatusCode, Json<SpenderReply>), AppError>{
@@ -45,10 +52,10 @@ pub async fn get_big_spender(
     Ok(res)
 }
 
-//Get and collect the turnips_held and price_paid for a all islands in DB
-//calculate the total bells spent on turnips for each island
-//and determine the biggest spender. Return the island that gets this honor.
-//The SQL query text has to match the Rust structs representing them
+///Implements the get_big_spender route functionality
+/// Retrieves all island profile info from the Profile table, calculated how much each has spent, saves the infor for the biggest spender
+/// Queries the User table to get the name of the User that owns the bigest spending island
+/// Packages up island, user and total spent info and sends this back as a JSON in the reply
 async fn try_biggest_spender(
     connection: &PgPool
 ) -> Result<(StatusCode, Json<SpenderReply>), anyhow::Error>{
@@ -79,9 +86,9 @@ async fn try_biggest_spender(
 
     //make a new Spender_reply struct and populate with info from the biggest spender and the calculated spending amount
     let reply = SpenderReply {
-        island: biggest_spender.island_name.clone(),
-        turnip_quantity: biggest_spender.turnips_held.clone(),
-        price_paid: biggest_spender.price_paid.clone(),
+        island: biggest_spender.island_name,
+        turnip_quantity: biggest_spender.turnips_held,
+        price_paid: biggest_spender.price_paid,
         total_spent: spent,
         owner_name: owner.name,
     };
@@ -90,19 +97,32 @@ async fn try_biggest_spender(
     Ok((StatusCode::OK, Json(reply)))
 }
 
+
+///public GET route to retrieve the potential profits for a specific island, given a specified selling price value
+///Island to search for is based on id#
+/// Island id and selling price value to work with are provded as params in the route URL
 //route that captures from the URL using Path and calculates max_profits possible for the given selling price for an island
 pub async fn get_max_profits(
-    Extension(connection): Extension<PgPool>, Path((selling_price, island_id)): Path<(Uuid, Uuid)>,
+    Extension(connection): Extension<PgPool>, Path((selling_price, island_id)): Path<(String, String)>,
 ) -> Result<(StatusCode, Json<MaxProfitsReply>), AppError>{
     let res = try_max_profits(&connection, (selling_price, island_id)).await?;
     Ok(res)
 }
 
+///Implements the get_max_profits route functionality
+/// Extracts the requested island ID and selling price value to work with, from the URL params
+/// Queries the Profile table to get the information for the island requested
+/// Calculates the total spent, the total earned if sold at the selling price, and the profits (or losses) that result
+/// Packages up island information, calculated results and profit/loss status and sends back this info as a JSON in the reply
 async fn try_max_profits(
-    connection: &PgPool, (selling_price, island_id) : (Uuid,Uuid), //pattern matching!
+    connection: &PgPool, (selling_price, island_id) : (String, String), //pattern matching!
 ) -> Result<(StatusCode, Json<MaxProfitsReply>), anyhow::Error>{
+
+    //parse out the Params into i32's
+    let num_selling_price = i32::from_str(&selling_price).expect("error parsing");
+    let num_island_id = i32::from_str(&island_id).expect("error parsing");
     //Query to find the island in question, then calculate the profits based on the given selling price
-    let requested_island: Profile = sqlx::query_as!(Profile, "SELECT island_name, turnips_held, price_paid, owner_id WHERE id = $1", island_id as i32)
+    let requested_island = sqlx::query!("SELECT island_name, turnips_held, price_paid, owner_id FROM profile WHERE id = $1", num_island_id)
         .fetch_one(connection).await?;
 
     let owner_id: i32 = requested_island.owner_id;
@@ -110,18 +130,24 @@ async fn try_max_profits(
     let owner = sqlx::query!("SELECT name FROM users WHERE id = $1", owner_id).fetch_one(connection).await?;
 
     let spent:i64 = (requested_island.turnips_held * requested_island.price_paid).into();
-    let earned: i64 = (requested_island.turnips_held * selling_price).into();
+    let earned: i64 = (requested_island.turnips_held * num_selling_price).into();
     let profits = earned - spent;
+
+    let mut profit_result: bool = true;
+    if profits <= 0{
+        profit_result = false;
+    }
 
     //make a new MaxProfitsReply struct and populate with info f
     let reply = MaxProfitsReply {
-        island: requested_island.island_name.clone(),
-        turnip_quantity: requested_island.turnips_held.clone(),
-        price_paid: requested_island.price_paid.clone(),
+        island: requested_island.island_name,
+        turnip_quantity: requested_island.turnips_held,
+        price_paid: requested_island.price_paid,
         total_spent: spent,
         owner_name: owner.name,
         potential_profits: profits,
-        selling_price: selling_price,
+        selling_price: num_selling_price,
+        profited: profit_result,
     };
 
     Ok((StatusCode::OK, Json(reply)))
