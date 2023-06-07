@@ -11,40 +11,29 @@ More will be added as development proceeds. Repo is currently Private and will b
 
 # Current State of the Program...
 
-### To run
+## Please ignore the Docker files for now
+
+### To run (from the top level in rustys-root-review)
 
 ```agsl
+cd root_review
 cargo run
 ```
 
-Database information for "tuber" pulled from the .env for Tuber Trader:
+https://www.postman.com/
+Once connected, from Postman...
 
+>...to get a JSON reply that shows the profile who spent the most on turnips, make a GET request to: localhost:3333/spender
+>
+>...to get a JSON reply that shows the max profits possible for island #6 at a selling price of 262, make a GET request to: localhost:3333/profits/262/6
+>
+>...to get a JSON reply that shows the most profitable island profile if the selling price is 110, make a GET request to: localhost:3333/profits/110
+
+Database information for "tuber" pulled from the .env for Tuber Trader:
+```
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=tuber
 DB_USER=tuber
 DB_PASS=tuber
-
-The following steps courtesy of chatGPT:
-
-To restore the DB from the tuber_dump.sql file in linux:
-
-1. Copy tuber_dump.sql to the machine you would like to restore the database too, note the path to this copy (to obtain run: realpath filename.sql)
-2. Open the terminal on that machine
-2. Navigate to the directory where the PSQL command line tools are located (if unsure, run:  ls user/bin/pg* to see if the pg files exist in user/bin)
-3. Run: psql -U <your_psql_username> -d <your_name_for_the_db> -f <path/to/copy_of_tuber_dump.sql>
-
-
-Once restored, start and connect to tuber in linux:
-
-1. To start: sudo service postgresql start
-2. To connect: psql -U <your_psql_username> -d <your_name_for_the_db>
-3. To list all tables in the db: \dt
-4. To select and display all data from a specific table: SELECT * FROM <table_name>
-
-Trouble shooting Postgres from ubunutu:
-
-1. If the sudo service postgresql start command fails, the postgres server package may not be installed:
-- To install the postgreSQL server package: sudo apt-get install postgresql-14
-- To upgrade: sudo apt-get upgrade postgresql-14
-- To see version: psql --version
+```
