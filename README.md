@@ -9,9 +9,51 @@ This microservice will query Tuber Trader's Database table for "Profiles" and ru
 
 More will be added as development proceeds. Repo is currently Private and will be made public eventually.
 
-# Current State of the Program...
+# As of 6/7/2023...
 
-## Please ignore the Docker files for now
+### ----- Please ignore the Docker files for now ----
+
+## Locally Restoring and Connecting to the database: 'tuber'
+
+### NOTE: If this is your very first time restoring the tuber database on a machine from the tuber_dump.sql provided here....
+ 
+....you will need to create the tuber database on your machine, to do so:
+> Access the psql command line: ```sudo -u postgres psql```
+> 
+> Run: ```\l``` to see a list of all existing databases
+> 
+> If 'tuber' does not alredy exist, run: ```CREATE DATABASE tuber```
+> 
+ ...you will need to create the postgres user called 'tuber', to do so:
+
+> Access the psql command line: ```sudo -u postgres psql```
+> 
+> Check existing users: ```\du```
+> 
+> If no user 'tuber' exists, create one: ```CREATE USER tuber WITH PASSWORD 'tuber';``` Upon success you will see the "CREATE ROLE" message
+> 
+> Grant privilages to the tuber role: ```GRANT ALL PRIVILEGES ON DATABASE tuber to tuber;```
+
+1. Copy the current version of the tuber_dump.sql file onto your local machine, note the file path to this copy (if you have a copy of an earlier version of this file, please delete it)
+2. To restore the database in it's pre-seeded form, from the linux command line run: ```psql -h localhost -U <your_postgres_user_name> -W -d tuber -f <file/path/to/copy_of_tuber_dump.sql>```
+3. To connect to tuber from the psql command line: ```\c tuber```
+4. To view all existing tables in the tuber schema run: ```\dt```
+
+    Here is a list of public tables owned by tuber:
+    
+    >iphistory
+    > 
+    >mikro_orm_migrations
+    > 
+    >profile
+    > 
+    >selling_price_history
+    > 
+    >transactions
+    > 
+    >users
+
+5. Once connected, run the program and hit the routes via postman, instructions below
 
 ### To run (from the top level in rustys-root-review)
 
