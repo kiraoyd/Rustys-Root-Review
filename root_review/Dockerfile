@@ -1,8 +1,7 @@
 FROM rust:buster as builder
 
 ENV DATABASE_URL=postgres://tuber:tuber@postgres/tuber
-# This HAS to match our backend!
-ENV AUTH_SECRET=superSecret
+
 
 WORKDIR /app/src
 RUN USER=root cargo new --bin root_review
@@ -22,7 +21,7 @@ RUN apt update \
 
 WORKDIR /app
 ENV DATABASE_URL=postgres://tuber:tuber@postgres/tuber
-ENV AUTH_SECRET=superSecret
+
 
 EXPOSE 3333
 
