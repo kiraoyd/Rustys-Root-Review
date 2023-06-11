@@ -24,7 +24,7 @@ SET default_table_access_method = heap;
 -- Name: iphistory; Type: TABLE; Schema: public; Owner: tuber
 --
 
-CREATE TABLE iphistory (
+CREATE TABLE public.iphistory (
     id integer NOT NULL,
     updated_at timestamp(0) with time zone NOT NULL,
     deleted_at timestamp(0) with time zone,
@@ -34,13 +34,13 @@ CREATE TABLE iphistory (
 );
 
 
-ALTER TABLE iphistory OWNER TO tuber;
+ALTER TABLE public.iphistory OWNER TO tuber;
 
 --
 -- Name: iphistory_id_seq; Type: SEQUENCE; Schema: public; Owner: tuber
 --
 
-CREATE SEQUENCE iphistory_id_seq
+CREATE SEQUENCE public.iphistory_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -49,33 +49,33 @@ CREATE SEQUENCE iphistory_id_seq
     CACHE 1;
 
 
-ALTER TABLE iphistory_id_seq OWNER TO tuber;
+ALTER TABLE public.iphistory_id_seq OWNER TO tuber;
 
 --
 -- Name: iphistory_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tuber
 --
 
-ALTER SEQUENCE iphistory_id_seq OWNED BY iphistory.id;
+ALTER SEQUENCE public.iphistory_id_seq OWNED BY public.iphistory.id;
 
 
 --
 -- Name: mikro_orm_migrations; Type: TABLE; Schema: public; Owner: tuber
 --
 
-CREATE TABLE mikro_orm_migrations (
+CREATE TABLE public.mikro_orm_migrations (
     id integer NOT NULL,
     name character varying(255),
     executed_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP
 );
 
 
-ALTER TABLE mikro_orm_migrations OWNER TO tuber;
+ALTER TABLE public.mikro_orm_migrations OWNER TO tuber;
 
 --
 -- Name: mikro_orm_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: tuber
 --
 
-CREATE SEQUENCE mikro_orm_migrations_id_seq
+CREATE SEQUENCE public.mikro_orm_migrations_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -84,20 +84,20 @@ CREATE SEQUENCE mikro_orm_migrations_id_seq
     CACHE 1;
 
 
-ALTER TABLE mikro_orm_migrations_id_seq OWNER TO tuber;
+ALTER TABLE public.mikro_orm_migrations_id_seq OWNER TO tuber;
 
 --
 -- Name: mikro_orm_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tuber
 --
 
-ALTER SEQUENCE mikro_orm_migrations_id_seq OWNED BY mikro_orm_migrations.id;
+ALTER SEQUENCE public.mikro_orm_migrations_id_seq OWNED BY public.mikro_orm_migrations.id;
 
 
 --
 -- Name: profile; Type: TABLE; Schema: public; Owner: tuber
 --
 
-CREATE TABLE profile (
+CREATE TABLE public.profile (
     id integer NOT NULL,
     updated_at timestamp(0) with time zone NOT NULL,
     deleted_at timestamp(0) with time zone,
@@ -110,13 +110,13 @@ CREATE TABLE profile (
 );
 
 
-ALTER TABLE profile OWNER TO tuber;
+ALTER TABLE public.profile OWNER TO tuber;
 
 --
 -- Name: profile_id_seq; Type: SEQUENCE; Schema: public; Owner: tuber
 --
 
-CREATE SEQUENCE profile_id_seq
+CREATE SEQUENCE public.profile_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -125,20 +125,20 @@ CREATE SEQUENCE profile_id_seq
     CACHE 1;
 
 
-ALTER TABLE profile_id_seq OWNER TO tuber;
+ALTER TABLE public.profile_id_seq OWNER TO tuber;
 
 --
 -- Name: profile_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tuber
 --
 
-ALTER SEQUENCE profile_id_seq OWNED BY profile.id;
+ALTER SEQUENCE public.profile_id_seq OWNED BY public.profile.id;
 
 
 --
 -- Name: selling_price_history; Type: TABLE; Schema: public; Owner: tuber
 --
 
-CREATE TABLE selling_price_history (
+CREATE TABLE public.selling_price_history (
     id integer NOT NULL,
     deleted_at timestamp(0) with time zone,
     island_id integer NOT NULL,
@@ -150,13 +150,13 @@ CREATE TABLE selling_price_history (
 );
 
 
-ALTER TABLE selling_price_history OWNER TO tuber;
+ALTER TABLE public.selling_price_history OWNER TO tuber;
 
 --
 -- Name: selling_price_history_id_seq; Type: SEQUENCE; Schema: public; Owner: tuber
 --
 
-CREATE SEQUENCE selling_price_history_id_seq
+CREATE SEQUENCE public.selling_price_history_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -165,20 +165,20 @@ CREATE SEQUENCE selling_price_history_id_seq
     CACHE 1;
 
 
-ALTER TABLE selling_price_history_id_seq OWNER TO tuber;
+ALTER TABLE public.selling_price_history_id_seq OWNER TO tuber;
 
 --
 -- Name: selling_price_history_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tuber
 --
 
-ALTER SEQUENCE selling_price_history_id_seq OWNED BY selling_price_history.id;
+ALTER SEQUENCE public.selling_price_history_id_seq OWNED BY public.selling_price_history.id;
 
 
 --
 -- Name: transactions; Type: TABLE; Schema: public; Owner: tuber
 --
 
-CREATE TABLE transactions (
+CREATE TABLE public.transactions (
     id integer NOT NULL,
     created_at timestamp(0) with time zone NOT NULL,
     updated_at timestamp(0) with time zone NOT NULL,
@@ -191,13 +191,13 @@ CREATE TABLE transactions (
 );
 
 
-ALTER TABLE transactions OWNER TO tuber;
+ALTER TABLE public.transactions OWNER TO tuber;
 
 --
 -- Name: transactions_id_seq; Type: SEQUENCE; Schema: public; Owner: tuber
 --
 
-CREATE SEQUENCE transactions_id_seq
+CREATE SEQUENCE public.transactions_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -206,20 +206,20 @@ CREATE SEQUENCE transactions_id_seq
     CACHE 1;
 
 
-ALTER TABLE transactions_id_seq OWNER TO tuber;
+ALTER TABLE public.transactions_id_seq OWNER TO tuber;
 
 --
 -- Name: transactions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tuber
 --
 
-ALTER SEQUENCE transactions_id_seq OWNED BY transactions.id;
+ALTER SEQUENCE public.transactions_id_seq OWNED BY public.transactions.id;
 
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: tuber
 --
 
-CREATE TABLE users (
+CREATE TABLE public.users (
     id integer NOT NULL,
     deleted_at timestamp(0) with time zone,
     name character varying(255) NOT NULL,
@@ -232,13 +232,13 @@ CREATE TABLE users (
 );
 
 
-ALTER TABLE users OWNER TO tuber;
+ALTER TABLE public.users OWNER TO tuber;
 
 --
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: tuber
 --
 
-CREATE SEQUENCE users_id_seq
+CREATE SEQUENCE public.users_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -247,62 +247,62 @@ CREATE SEQUENCE users_id_seq
     CACHE 1;
 
 
-ALTER TABLE users_id_seq OWNER TO tuber;
+ALTER TABLE public.users_id_seq OWNER TO tuber;
 
 --
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tuber
 --
 
-ALTER SEQUENCE users_id_seq OWNED BY users.id;
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
 -- Name: iphistory id; Type: DEFAULT; Schema: public; Owner: tuber
 --
 
-ALTER TABLE ONLY iphistory ALTER COLUMN id SET DEFAULT nextval('iphistory_id_seq'::regclass);
+ALTER TABLE ONLY public.iphistory ALTER COLUMN id SET DEFAULT nextval('public.iphistory_id_seq'::regclass);
 
 
 --
 -- Name: mikro_orm_migrations id; Type: DEFAULT; Schema: public; Owner: tuber
 --
 
-ALTER TABLE ONLY mikro_orm_migrations ALTER COLUMN id SET DEFAULT nextval('mikro_orm_migrations_id_seq'::regclass);
+ALTER TABLE ONLY public.mikro_orm_migrations ALTER COLUMN id SET DEFAULT nextval('public.mikro_orm_migrations_id_seq'::regclass);
 
 
 --
 -- Name: profile id; Type: DEFAULT; Schema: public; Owner: tuber
 --
 
-ALTER TABLE ONLY profile ALTER COLUMN id SET DEFAULT nextval('profile_id_seq'::regclass);
+ALTER TABLE ONLY public.profile ALTER COLUMN id SET DEFAULT nextval('public.profile_id_seq'::regclass);
 
 
 --
 -- Name: selling_price_history id; Type: DEFAULT; Schema: public; Owner: tuber
 --
 
-ALTER TABLE ONLY selling_price_history ALTER COLUMN id SET DEFAULT nextval('selling_price_history_id_seq'::regclass);
+ALTER TABLE ONLY public.selling_price_history ALTER COLUMN id SET DEFAULT nextval('public.selling_price_history_id_seq'::regclass);
 
 
 --
 -- Name: transactions id; Type: DEFAULT; Schema: public; Owner: tuber
 --
 
-ALTER TABLE ONLY transactions ALTER COLUMN id SET DEFAULT nextval('transactions_id_seq'::regclass);
+ALTER TABLE ONLY public.transactions ALTER COLUMN id SET DEFAULT nextval('public.transactions_id_seq'::regclass);
 
 
 --
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: tuber
 --
 
-ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
 -- Data for Name: iphistory; Type: TABLE DATA; Schema: public; Owner: tuber
 --
 
-COPY iphistory (id, updated_at, deleted_at, ip, user_id, created_at) FROM stdin;
+COPY public.iphistory (id, updated_at, deleted_at, ip, user_id, created_at) FROM stdin;
 1	2023-06-06 19:56:01-07	\N	227.247.179.85	1	2023-06-06 19:56:01-07
 2	2023-06-06 19:56:01-07	\N	29.17.217.77	1	2023-06-06 19:56:01-07
 3	2023-06-06 19:56:01-07	\N	43.171.185.204	1	2023-06-06 19:56:01-07
@@ -330,7 +330,7 @@ COPY iphistory (id, updated_at, deleted_at, ip, user_id, created_at) FROM stdin;
 -- Data for Name: mikro_orm_migrations; Type: TABLE DATA; Schema: public; Owner: tuber
 --
 
-COPY mikro_orm_migrations (id, name, executed_at) FROM stdin;
+COPY public.mikro_orm_migrations (id, name, executed_at) FROM stdin;
 \.
 
 
@@ -338,7 +338,7 @@ COPY mikro_orm_migrations (id, name, executed_at) FROM stdin;
 -- Data for Name: profile; Type: TABLE DATA; Schema: public; Owner: tuber
 --
 
-COPY profile (id, updated_at, deleted_at, island_name, picture, turnips_held, price_paid, owner_id, created_at) FROM stdin;
+COPY public.profile (id, updated_at, deleted_at, island_name, picture, turnips_held, price_paid, owner_id, created_at) FROM stdin;
 1	2023-06-06 19:56:01-07	\N	orjeene	http://placeholder.com/mypic.jpeg	1100	93	1	2023-06-06 19:56:01-07
 2	2023-06-06 19:56:01-07	\N	popcorn	http://placeholder.com/mypic.jpeg	100	100	1	2023-06-06 19:56:01-07
 3	2023-06-06 19:56:01-07	\N	squirtle	http://placeholder.com/mypic.jpeg	2000	110	1	2023-06-06 19:56:01-07
@@ -359,7 +359,7 @@ COPY profile (id, updated_at, deleted_at, island_name, picture, turnips_held, pr
 -- Data for Name: selling_price_history; Type: TABLE DATA; Schema: public; Owner: tuber
 --
 
-COPY selling_price_history (id, deleted_at, island_id, date, price_am, price_pm, created_at, updated_at) FROM stdin;
+COPY public.selling_price_history (id, deleted_at, island_id, date, price_am, price_pm, created_at, updated_at) FROM stdin;
 1	\N	1	2023-06-06	1100	93	2023-06-06 19:56:01-07	2023-06-06 19:56:01-07
 5	\N	9	2023-06-08	1100	93	2023-06-08 14:16:12-07	2023-06-08 14:16:12-07
 \.
@@ -369,7 +369,7 @@ COPY selling_price_history (id, deleted_at, island_id, date, price_am, price_pm,
 -- Data for Name: transactions; Type: TABLE DATA; Schema: public; Owner: tuber
 --
 
-COPY transactions (id, created_at, updated_at, deleted_at, number_sold, price_sold, profits, seller_id, host_id) FROM stdin;
+COPY public.transactions (id, created_at, updated_at, deleted_at, number_sold, price_sold, profits, seller_id, host_id) FROM stdin;
 1	2023-06-06 19:56:01-07	2023-06-06 19:56:01-07	\N	2000	110	50000	1	1
 5	2023-06-08 14:16:12-07	2023-06-08 14:16:12-07	\N	2000	110	50000	17	9
 \.
@@ -379,7 +379,7 @@ COPY transactions (id, created_at, updated_at, deleted_at, number_sold, price_so
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: tuber
 --
 
-COPY users (id, deleted_at, name, email, password, role, created_at, updated_at) FROM stdin;
+COPY public.users (id, deleted_at, name, email, password, role, created_at, updated_at) FROM stdin;
 1	\N	kirak	email@email.com	password	Admin	2023-06-06 19:56:01-07	2023-06-06 19:56:01-07
 2	\N	otherGuy	email2@email.com	password	User	2023-06-06 19:56:01-07	2023-06-06 19:56:01-07
 3	\N	olimo	email3@email.com	password	User	2023-06-06 19:56:01-07	2023-06-06 19:56:01-07
@@ -395,49 +395,49 @@ COPY users (id, deleted_at, name, email, password, role, created_at, updated_at)
 -- Name: iphistory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tuber
 --
 
-SELECT pg_catalog.setval('iphistory_id_seq', 23, true);
+SELECT pg_catalog.setval('public.iphistory_id_seq', 23, true);
 
 
 --
 -- Name: mikro_orm_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tuber
 --
 
-SELECT pg_catalog.setval('mikro_orm_migrations_id_seq', 1, false);
+SELECT pg_catalog.setval('public.mikro_orm_migrations_id_seq', 1, false);
 
 
 --
 -- Name: profile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tuber
 --
 
-SELECT pg_catalog.setval('profile_id_seq', 16, true);
+SELECT pg_catalog.setval('public.profile_id_seq', 16, true);
 
 
 --
 -- Name: selling_price_history_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tuber
 --
 
-SELECT pg_catalog.setval('selling_price_history_id_seq', 5, true);
+SELECT pg_catalog.setval('public.selling_price_history_id_seq', 5, true);
 
 
 --
 -- Name: transactions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tuber
 --
 
-SELECT pg_catalog.setval('transactions_id_seq', 5, true);
+SELECT pg_catalog.setval('public.transactions_id_seq', 5, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tuber
 --
 
-SELECT pg_catalog.setval('users_id_seq', 20, true);
+SELECT pg_catalog.setval('public.users_id_seq', 20, true);
 
 
 --
 -- Name: iphistory iphistory_pkey; Type: CONSTRAINT; Schema: public; Owner: tuber
 --
 
-ALTER TABLE ONLY iphistory
+ALTER TABLE ONLY public.iphistory
     ADD CONSTRAINT iphistory_pkey PRIMARY KEY (id);
 
 
@@ -445,7 +445,7 @@ ALTER TABLE ONLY iphistory
 -- Name: mikro_orm_migrations mikro_orm_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: tuber
 --
 
-ALTER TABLE ONLY mikro_orm_migrations
+ALTER TABLE ONLY public.mikro_orm_migrations
     ADD CONSTRAINT mikro_orm_migrations_pkey PRIMARY KEY (id);
 
 
@@ -453,7 +453,7 @@ ALTER TABLE ONLY mikro_orm_migrations
 -- Name: profile profile_pkey; Type: CONSTRAINT; Schema: public; Owner: tuber
 --
 
-ALTER TABLE ONLY profile
+ALTER TABLE ONLY public.profile
     ADD CONSTRAINT profile_pkey PRIMARY KEY (id);
 
 
@@ -461,7 +461,7 @@ ALTER TABLE ONLY profile
 -- Name: selling_price_history selling_price_history_pkey; Type: CONSTRAINT; Schema: public; Owner: tuber
 --
 
-ALTER TABLE ONLY selling_price_history
+ALTER TABLE ONLY public.selling_price_history
     ADD CONSTRAINT selling_price_history_pkey PRIMARY KEY (id);
 
 
@@ -469,7 +469,7 @@ ALTER TABLE ONLY selling_price_history
 -- Name: transactions transactions_pkey; Type: CONSTRAINT; Schema: public; Owner: tuber
 --
 
-ALTER TABLE ONLY transactions
+ALTER TABLE ONLY public.transactions
     ADD CONSTRAINT transactions_pkey PRIMARY KEY (id);
 
 
@@ -477,7 +477,7 @@ ALTER TABLE ONLY transactions
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: tuber
 --
 
-ALTER TABLE ONLY users
+ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
@@ -485,40 +485,40 @@ ALTER TABLE ONLY users
 -- Name: iphistory iphistory_user_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: tuber
 --
 
-ALTER TABLE ONLY iphistory
-    ADD CONSTRAINT iphistory_user_id_foreign FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE;
+ALTER TABLE ONLY public.iphistory
+    ADD CONSTRAINT iphistory_user_id_foreign FOREIGN KEY (user_id) REFERENCES public.users(id) ON UPDATE CASCADE;
 
 
 --
 -- Name: profile profile_owner_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: tuber
 --
 
-ALTER TABLE ONLY profile
-    ADD CONSTRAINT profile_owner_id_foreign FOREIGN KEY (owner_id) REFERENCES users(id) ON UPDATE CASCADE;
+ALTER TABLE ONLY public.profile
+    ADD CONSTRAINT profile_owner_id_foreign FOREIGN KEY (owner_id) REFERENCES public.users(id) ON UPDATE CASCADE;
 
 
 --
 -- Name: selling_price_history selling_price_history_island_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: tuber
 --
 
-ALTER TABLE ONLY selling_price_history
-    ADD CONSTRAINT selling_price_history_island_id_foreign FOREIGN KEY (island_id) REFERENCES profile(id) ON UPDATE CASCADE;
+ALTER TABLE ONLY public.selling_price_history
+    ADD CONSTRAINT selling_price_history_island_id_foreign FOREIGN KEY (island_id) REFERENCES public.profile(id) ON UPDATE CASCADE;
 
 
 --
 -- Name: transactions transactions_host_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: tuber
 --
 
-ALTER TABLE ONLY transactions
-    ADD CONSTRAINT transactions_host_id_foreign FOREIGN KEY (host_id) REFERENCES profile(id) ON UPDATE CASCADE;
+ALTER TABLE ONLY public.transactions
+    ADD CONSTRAINT transactions_host_id_foreign FOREIGN KEY (host_id) REFERENCES public.profile(id) ON UPDATE CASCADE;
 
 
 --
 -- Name: transactions transactions_seller_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: tuber
 --
 
-ALTER TABLE ONLY transactions
-    ADD CONSTRAINT transactions_seller_id_foreign FOREIGN KEY (seller_id) REFERENCES users(id) ON UPDATE CASCADE;
+ALTER TABLE ONLY public.transactions
+    ADD CONSTRAINT transactions_seller_id_foreign FOREIGN KEY (seller_id) REFERENCES public.users(id) ON UPDATE CASCADE;
 
 
 --
