@@ -7,8 +7,10 @@ use axum::response::{IntoResponse, Response};
 //use jsonwebtoken::{DecodingKey, EncodingKey};
 
 //allow access directly to the .env file
+//NOTE: added option for database url for the hardcoded postgres creation of tuber
 pub struct EnvOptions {
     pub database_url: String,
+    pub mock_tuber_db_url: String,
 }
 
 //implement the new function for this struct that maks a new one populated with the URL from the.env
@@ -16,6 +18,7 @@ impl EnvOptions {
     pub fn new() -> Self {
         EnvOptions {
             database_url: std::env::var("DATABASE_URL").expect("Missing env var for DATABASE_URL"),
+            mock_tuber_db_url: std::env::var("MOCK_TUBER_DB_URL").expect("Missing env var for MOCK_TUBER_DB_URL"),
         }
     }
 }

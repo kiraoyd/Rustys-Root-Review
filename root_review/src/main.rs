@@ -30,8 +30,11 @@ pub mod handlers;
 pub mod models;
 pub mod routes;
 pub mod packages;
+pub mod db;
 
 use routes::routes;
+use db::create_mock_db;
+
 
 //Set up the axum server to run
 ///Sets up the axum server to connect to the DB, layers on cors middlewares, our Router, and the DB connection
@@ -66,13 +69,20 @@ pub async fn establish_connection() -> AnyResult<PgPool> {
 
     // create a pool of connections!
     //chaining together some functions to create a pool with max connections set and connected to our tuber DB
+    //TODO use these lines when connecting to REAL tuber trader DB
+    // let pool = PgPoolOptions::new()
+    //     .max_connections(10)
+    //     .connect(&env_opts.database_url)
+    //     .await?;
+//    info!("Database connection to tuber established!");
+
+    //TODO comment out when not testing against mock tuber
     let pool = PgPoolOptions::new()
         .max_connections(10)
-        .connect(&env_opts.database_url)
+        .connect(&env_opts.mock_tuber_db_url)
         .await?;
-
     //convert pool from Result to Option, and extract result value
-    info!("Database connection established!");
+    info!("Database connection to mock tuber established!");
     //If connection is successful, we can return the pool
     Ok(pool)
 }
@@ -87,7 +97,9 @@ async fn main() -> AnyResult<()> {
     tracing_subscriber::fmt::init();
     trace!("App initialized.");
 
+    //create the mock DB and seed it
+    create_mock_db().unwrap();
     //Set our serve to listen
-    run().await.unwrap();
+    //cd ..run().await.unwrap();
     Ok(())
 }
