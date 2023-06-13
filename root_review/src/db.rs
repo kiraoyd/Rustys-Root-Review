@@ -135,7 +135,7 @@ pub fn seed_user_table() -> Result<(), Error> {
     //iterate through the vec and grab the values from each struct to give to the SQL query to insert
     for user in &users {
         client.execute(
-            "INSERT INTO profile (name, picture, turnips_held, price_paid, owner_id) VALUES ($1, $2, $3, $4, $5)",
+            "INSERT INTO user (name, picture, turnips_held, price_paid, owner_id) VALUES ($1, $2, $3, $4, $5)",
             &[&user.name, &user.email, &user.password, &user.role],
         )?;
     }

@@ -1,0 +1,11 @@
+/home/kirak/workspace/rustys-root-review/create_mock_db/target/debug/deps/parking_lot_core-9e9ea92165263090.rmeta: /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/lib.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/parking_lot.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/spinwait.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/thread_parker/mod.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/util.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/word_lock.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/thread_parker/linux.rs
+
+/home/kirak/workspace/rustys-root-review/create_mock_db/target/debug/deps/parking_lot_core-9e9ea92165263090.d: /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/lib.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/parking_lot.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/spinwait.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/thread_parker/mod.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/util.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/word_lock.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/thread_parker/linux.rs
+
+/home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/lib.rs:
+/home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/parking_lot.rs:
+/home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/spinwait.rs:
+/home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/thread_parker/mod.rs:
+/home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/util.rs:
+/home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/word_lock.rs:
+/home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.8/src/thread_parker/linux.rs:

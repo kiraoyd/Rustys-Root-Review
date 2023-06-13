@@ -244,6 +244,22 @@ With some help from Mathew Cooper on zulip, this was the answer:
 "A module cannot be declare outside the root/crate module tree (i.e., going up the module tree, a submodule must always have a parent that is declared directly in lib.rs or main.rs, so the first program submodule must always be declared there — a tree data structure if it isn't already obvious enough)."
 all new files in src need to be published either in main.rs or lib.rs via: pub mod filename;
 
+
+6/13/2023
+
+Well, I've been stuck trying to get my sql dumpfile to load on Bart's side. 
+After hours of searching and reading online, I still can't find a solution for the issue we are having.
+Something to do with the sql file creating public schema by default, and not loading when a restore is attempted.
+so I've pivoted, and started building a second crate that will build a mock version of the db on Barts machine when run.
+I got the bones of things from this tutorial:https://rust-lang-nursery.github.io/rust-cookbook/database/postgres.html
+And have been troubleshooting little erorrs. 
+Originally I tried to make this a seperate file inside the root_review crate, but encountered a "cannot establish a runtime within a runtime" error.
+I did some digging but decided it was going to take too long to figure it out this close to the deadline.
+So I opted to build this seperate crate.
+
+I've been hashing out some SQL query issues using a combo of the postgres docs and some queries to chatGPT.
+Clippy was very helpful in sorting out some silly Rust errors I made in the process.
+
 # Things this project helped me practice and learn
 - Rust Web server/router setup
 - Crates and modules
@@ -258,4 +274,4 @@ all new files in src need to be published either in main.rs or lib.rs via: pub m
 - number typing and size decisions
 - References VS deriving the Clone trait
 - Extracting URL params and parsing strings
-- 
+- Building and seeding a DB from sql queries using the postgres crate

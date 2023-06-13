@@ -1,0 +1,12 @@
+/home/kirak/workspace/rustys-root-review/create_mock_db/target/debug/deps/sqlformat-d9aa23b8baec1edb.rmeta: /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/lib.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/formatter.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/indentation.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/inline_block.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/params.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/tokenizer.rs
+
+/home/kirak/workspace/rustys-root-review/create_mock_db/target/debug/deps/libsqlformat-d9aa23b8baec1edb.rlib: /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/lib.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/formatter.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/indentation.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/inline_block.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/params.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/tokenizer.rs
+
+/home/kirak/workspace/rustys-root-review/create_mock_db/target/debug/deps/sqlformat-d9aa23b8baec1edb.d: /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/lib.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/formatter.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/indentation.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/inline_block.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/params.rs /home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/tokenizer.rs
+
+/home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/lib.rs:
+/home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/formatter.rs:
+/home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/indentation.rs:
+/home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/inline_block.rs:
+/home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/params.rs:
+/home/kirak/.cargo/registry/src/github.com-1ecc6299db9ec823/sqlformat-0.2.1/src/tokenizer.rs:

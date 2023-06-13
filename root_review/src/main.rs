@@ -98,7 +98,7 @@ async fn main() -> AnyResult<()> {
     trace!("App initialized.");
 
     //create the mock DB and seed it
-    create_mock_db().unwrap();
+    create_mock_db().await.unwrap();
     //Set our serve to listen
     //cd ..run().await.unwrap();
     Ok(())
