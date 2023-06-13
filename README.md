@@ -9,6 +9,55 @@ This microservice will query Tuber Trader's Database table for "Profiles" and ru
 
 More will be added as development proceeds. Repo is currently Private and will be made public eventually.
 
+
+# As of 6/13/2023
+
+## Step 1: Create a postgres database locally called 'mocktuber'
+
+When logged on as your postgres super user (usually named 'postgres'), create the mocktuber database on your machine, to do so:
+> Access the psql command line: ```sudo -u postgres psql```
+>
+> Run: ```\l``` to see a list of all existing databases
+>
+> If 'mocktuber' does not alredy exist, run: ```CREATE DATABASE mocktuber;```
+> 
+
+## Step 2: Run the create_mock_db crate:
+
+From the root directory 'rustys-root-review':
+
+> ```cd create_mock_db```
+> ```cargo run```
+
+This should populate the mock tuber database locally with seeded tables.
+
+To verify, from your psql command line run: 
+
+>```\l``` to see a list of databases
+> ```\c mocktuber``` to connect to mocktuber as your postgres superuser
+>```\dt``` to view a list of tables in mock tuber
+> ```SELECT * FROM <tablename>``` to see all seeded data in a table
+> 
+
+## Step 3: Run the root_review crate:
+
+From the root directory 'rustys-root-review':
+
+```cd root_review```
+```cargo run```
+
+## STEP 4: Hit the routes via postman
+
+https://www.postman.com/
+From the Postman application...
+
+>...to get a JSON reply that shows the profile who spent the most on turnips, make a GET request to: localhost:3333/spender
+>
+>...to get a JSON reply that shows the max profits possible for island #6 at a selling price of 262, make a GET request to: localhost:3333/profits/262/6
+>
+>...to get a JSON reply that shows the most profitable island profile if the selling price is 110, make a GET request to: localhost:3333/profits/110
+
+
 # As of 6/7/2023...
 
 ### ----- Please ignore the Docker files for now ----

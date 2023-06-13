@@ -259,6 +259,10 @@ So I opted to build this seperate crate.
 
 I've been hashing out some SQL query issues using a combo of the postgres docs and some queries to chatGPT.
 Clippy was very helpful in sorting out some silly Rust errors I made in the process.
+When testing on my local machine after making a new database on my postgres user, called "mocktuber", it is successful!
+
+So now I just need to bulk up the seed data, and test that I can run against this DB in my root_review crate.
+
 
 # Things this project helped me practice and learn
 - Rust Web server/router setup

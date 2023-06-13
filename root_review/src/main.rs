@@ -30,10 +30,10 @@ pub mod handlers;
 pub mod models;
 pub mod routes;
 pub mod packages;
-pub mod db;
+
 
 use routes::routes;
-use db::create_mock_db;
+
 
 
 //Set up the axum server to run
@@ -70,6 +70,7 @@ pub async fn establish_connection() -> AnyResult<PgPool> {
     // create a pool of connections!
     //chaining together some functions to create a pool with max connections set and connected to our tuber DB
     //TODO use these lines when connecting to REAL tuber trader DB
+    //***
     // let pool = PgPoolOptions::new()
     //     .max_connections(10)
     //     .connect(&env_opts.database_url)
@@ -97,9 +98,7 @@ async fn main() -> AnyResult<()> {
     tracing_subscriber::fmt::init();
     trace!("App initialized.");
 
-    //create the mock DB and seed it
-    create_mock_db().await.unwrap();
     //Set our serve to listen
-    //cd ..run().await.unwrap();
+    run().await.unwrap();
     Ok(())
 }
