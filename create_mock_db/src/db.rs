@@ -2,8 +2,8 @@ use postgres::{Client, NoTls, Error};
 //use crate::models::tuber_tables::IPHistory;
 use crate::models::tuber_tables::Profile;
 use crate::models::tuber_tables::User;
-use create_mock_db::EnvOptions;
-use dotenvy::dotenv;
+
+
 
 //postgres crate v0.19.5: https://docs.rs/postgres/latest/postgres/
 //postgres create db tutorial: https://rust-lang-nursery.github.io/rust-cookbook/database/postgres.html
@@ -12,21 +12,28 @@ use dotenvy::dotenv;
 //    let mut client = Client::connect("postgresql://username:password@localhost/mockTuber", NoTls)?;
 
 //Messed around with trying to use the establish_connection method here, but couldn't get it working right
-pub fn create_db() -> Result<(), Error> {
+pub fn create_db(info: Vec<String>) -> Result<(), Error> {
     //panic if any of these err
-    create_tables().unwrap();
-    seed_user_table().unwrap();
-    seed_profile_table().unwrap();
+    create_tables(info.clone()).unwrap();
+    seed_user_table(info.clone()).unwrap();
+    seed_profile_table(info).unwrap();
 
     Ok(()) //indicate success
 }
 
 
-pub fn create_tables() -> Result<(), Error> {
-    //let env_opts = EnvOptions::new();
+pub fn create_tables(info: Vec<String>) -> Result<(), Error> {
+
     //connect to the db we want to run the SQL on
-    //let mut client = Client::connect(&env_opts.mock_tuber_db_url, NoTls)?;
-    let mut client = Client::connect("postgresql://postgres:snaxkYs23@localhost/mocktuber", NoTls)?;
+
+    //TODO this doesn't see right, converting back and forth between String and str
+    let database_name = info[0].as_str();
+    let postgres_username = info[1].as_str();
+    let user_password = info[2].as_str();
+    let url = format!("postgresql://{}:{}@localhost/{}", postgres_username, user_password, database_name);
+
+    //let mut client = Client::connect("postgresql://postgres:snaxkYs23@localhost/mocktuber", NoTls)?;
+    let mut client = Client::connect(url.as_str(), NoTls)?;
 
 
     client.batch_execute("
@@ -63,11 +70,18 @@ pub fn create_tables() -> Result<(), Error> {
 
 //I already have structs to represent the tables in this db
 //the seeder will create a vec of structs to populate the db with for each table type, and insert the values via SQL
-pub fn seed_profile_table() -> Result<(), Error> {
-    //let env_opts = EnvOptions::new();
+pub fn seed_profile_table(info: Vec<String>) -> Result<(), Error> {
+
     //connect to the db we want to run the SQL on
-    //let mut client = Client::connect(&env_opts.mock_tuber_db_url, NoTls)?;
-    let mut client = Client::connect("postgresql://postgres:snaxkYs23@localhost/mocktuber", NoTls)?;
+    let database_name = info[0].as_str();
+    let postgres_username = info[1].as_str();
+    let user_password = info[2].as_str();
+    let url = format!("postgresql://{}:{}@localhost/{}", postgres_username, user_password, database_name);
+    let mut client = Client::connect(url.as_str(), NoTls)?;
+
+    //TODO no CLA option below
+    //let mut client = Client::connect("postgresql://postgres:snaxkYs23@localhost/mocktuber", NoTls)?;
+
 
     let profiles = vec![
         Profile {
@@ -108,11 +122,17 @@ pub fn seed_profile_table() -> Result<(), Error> {
     Ok(())
 }
 
-pub fn seed_user_table() -> Result<(), Error> {
-    //let env_opts = EnvOptions::new();
+pub fn seed_user_table(info: Vec<String>) -> Result<(), Error> {
+
     //connect to the db we want to run the SQL on
-    //let mut client = Client::connect(&env_opts.mock_tuber_db_url, NoTls)?;
-    let mut client = Client::connect("postgresql://postgres:snaxkYs23@localhost/mocktuber", NoTls)?;
+    let database_name = info[0].as_str();
+    let postgres_username = info[1].as_str();
+    let user_password = info[2].as_str();
+    let url = format!("postgresql://{}:{}@localhost/{}", postgres_username, user_password, database_name);
+    let mut client = Client::connect(url.as_str(), NoTls)?;
+
+    //TODO non CLA option below
+    //let mut client = Client::connect("postgresql://postgres:snaxkYs23@localhost/mocktuber", NoTls)?;
 
     let users = vec![
         User {

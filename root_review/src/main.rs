@@ -23,6 +23,7 @@ use std::net::SocketAddr;
 use tower_http::cors::{Any, CorsLayer};
 use tracing::log::info;
 use tracing::trace;
+use std::env;
 //use tracing_subscriber;
 
 //all extra files that are not main.rs and lib.rs need to be published at the top of the crate module tree, here or in lib.rs
@@ -98,6 +99,25 @@ async fn main() -> AnyResult<()> {
     tracing_subscriber::fmt::init();
     trace!("App initialized.");
 
+    //get the database info and set it in the .env
+    let mut info = Vec::new();
+
+    //process CLA
+    for arg in env::args().skip(1) {
+        info.push(arg.to_string());
+    }
+
+    if info.is_empty(){
+        eprintln!("No args provided, please provide the name of your database, your postgres username (usually 'postgres') and your password for that user.");
+        std::process::exit(1);
+    }
+    let database_name = info[0].as_str();
+    let postgres_username = info[1].as_str();
+    let user_password = info[2].as_str();
+
+    let url = format!("postgresql://{}:{}@localhost/{}", postgres_username, user_password, database_name);
+    let key = "DATABASE_URL";
+    env::set_var(key, url);
     //Set our serve to listen
     run().await.unwrap();
     Ok(())
