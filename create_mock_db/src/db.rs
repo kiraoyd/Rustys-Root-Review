@@ -8,7 +8,7 @@
 //! postgres create db tutorial: https://rust-lang-nursery.github.io/rust-cookbook/database/postgres.html
 
 use postgres::{Client, Error, NoTls};
-//use crate::models::tuber_tables::IPHistory;
+use crate::models::tuber_tables::IPHistory;
 use crate::models::tuber_tables::Profile;
 use crate::models::tuber_tables::User;
 
@@ -20,7 +20,8 @@ pub fn create_db(info: Vec<String>) -> Result<(), Error> {
     //panic if any of these err
     create_tables(info.clone()).unwrap();
     seed_user_table(info.clone()).unwrap();
-    seed_profile_table(info).unwrap();
+    seed_profile_table(info.clone()).unwrap();
+    seed_iph_table(info).unwrap();
 
     Ok(()) //indicate success
 }
@@ -115,6 +116,46 @@ pub fn seed_profile_table(info: Vec<String>) -> Result<(), Error> {
             price_paid: 110,
             owner_id: 3,
         },
+        Profile {
+            id: 4,
+            island_name: "pear".to_string(),
+            picture: "http://placeholder.com/mypic.jpeg".to_string(),
+            turnips_held: 4050,
+            price_paid: 106,
+            owner_id: 1,
+        },
+        Profile {
+            id: 5,
+            island_name: "fakeorjeene".to_string(),
+            picture: "http://placeholder.com/mypic.jpeg".to_string(),
+            turnips_held: 500,
+            price_paid: 100,
+            owner_id: 3,
+        },
+        Profile {
+            id: 6,
+            island_name: "melon".to_string(),
+            picture: "http://placeholder.com/mypic.jpeg".to_string(),
+            turnips_held: 3045,
+            price_paid: 109,
+            owner_id: 4,
+        },
+        Profile {
+            id: 7,
+            island_name: "makeItRain".to_string(),
+            picture: "http://placeholder.com/mypic.jpeg".to_string(),
+            turnips_held: 6000,
+            price_paid: 93,
+            owner_id: 5,
+        },
+        Profile {
+            id: 7,
+            island_name: "bigSpender".to_string(),
+            picture: "http://placeholder.com/mypic.jpeg".to_string(),
+            turnips_held: 6000,
+            price_paid: 120,
+            owner_id: 1,
+        },
     ];
 
     //iterate through the vec and grab the values from each struct to give to the SQL query to insert
@@ -163,6 +204,20 @@ pub fn seed_user_table(info: Vec<String>) -> Result<(), Error> {
             password: "password".to_string(),
             role: "User".to_string(),
         },
+        User {
+            id: 4,
+            name: "bender".to_string(),
+            email: "email@email.com".to_string(),
+            password: "password".to_string(),
+            role: "User".to_string(),
+        },
+        User {
+            id: 5,
+            name: "vimes".to_string(),
+            email: "cranky@email.com".to_string(),
+            password: "password".to_string(),
+            role: "User".to_string(),
+        },
     ];
 
     //iterate through the vec and grab the values from each struct to give to the SQL query to insert
@@ -171,6 +226,53 @@ pub fn seed_user_table(info: Vec<String>) -> Result<(), Error> {
             "INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4)",
             &[&user.name, &user.email, &user.password, &user.role],
         )?;
+    }
+
+    Ok(())
+}
+
+///Seeds the iphistory table (needed only for the test routes, not actually used by the microservice)
+pub fn seed_iph_table(info: Vec<String>) -> Result<(), Error> {
+    //connect to the db we want to run the SQL on
+    let database_name = info[0].as_str();
+    let postgres_username = info[1].as_str();
+    let user_password = info[2].as_str();
+    let url = format!(
+        "postgresql://{}:{}@localhost/{}",
+        postgres_username, user_password, database_name
+    );
+    let mut client = Client::connect(url.as_str(), NoTls)?;
+
+    let ips = vec![
+        IPHistory {
+            ip: "227.247.179.85".to_string(),
+        },
+        IPHistory {
+            ip: "29.17.217.77".to_string(),
+        },
+        IPHistory {
+            ip: "43.171.185.204".to_string(),
+        },
+        IPHistory {
+            ip: "106.2.44.76".to_string(),
+        },
+        IPHistory {
+            ip: "122.138.62.45".to_string(),
+        },
+        IPHistory {
+            ip: "166.189.162.62".to_string(),
+        },
+        IPHistory {
+            ip: "166.165.70.44".to_string(),
+        },
+        IPHistory {
+            ip: "95.161.112.143".to_string(),
+        },
+    ];
+
+    //iterate through the vec and grab the values from each struct to give to the SQL query to insert
+    for ip in &ips {
+        client.execute("INSERT INTO iphistory(ip) VALUES ($1)", &[&ip.ip])?;
     }
 
     Ok(())

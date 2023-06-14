@@ -1,7 +1,7 @@
 # A Journal of my progress building Rusty's Root Review for Bart Masseys Programming in Rust course Spring 2023
 
 Anytime I mirror the code comming out of doggr (which happened a lot when establishing the server itself), I will do the legwork to understand why it works and actually learn something rather than just regurgitate the code.
-This journal chronicals that process.
+This journal chronicals that process, and provides insight to my workflow for the whole project.
 
 5/11/2023
 
@@ -255,7 +255,7 @@ I got the bones of things from this tutorial:https://rust-lang-nursery.github.io
 And have been troubleshooting little erorrs. 
 Originally I tried to make this a seperate file inside the root_review crate, but encountered a "cannot establish a runtime within a runtime" error.
 I did some digging but decided it was going to take too long to figure it out this close to the deadline.
-So I opted to build this seperate crate.
+So I opted to build this separate crate.
 
 I've been hashing out some SQL query issues using a combo of the postgres docs and some queries to chatGPT.
 Clippy was very helpful in sorting out some silly Rust errors I made in the process.
@@ -274,7 +274,7 @@ My hunch is that this is totally redundant.
 If they come in from the CLA as str already, I should be able to just use them as is.
 But doing this broke things, so I'll shelve that task for later when I have a little more time to dive into the rust docs.
 
-
+Ok updated the documentation, and now I just need to add some more seeder data....almost there.
 
 # Things this project helped me practice and learn
 - Rust Web server/router setup
@@ -291,3 +291,4 @@ But doing this broke things, so I'll shelve that task for later when I have a li
 - References VS deriving the Clone trait
 - Extracting URL params and parsing strings
 - Building and seeding a DB from sql queries using the postgres crate
+- Processing CLA
