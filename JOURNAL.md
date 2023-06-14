@@ -263,6 +263,18 @@ When testing on my local machine after making a new database on my postgres user
 
 So now I just need to bulk up the seed data, and test that I can run against this DB in my root_review crate.
 
+YES! It's all working. I've successfully built this project into a standalone mockup of the real microservice for tuber Trader!
+The tricky bit was making this work for any user on their own local postgres.
+I decided to grab the database name (always mocktuber), postgres username (variable) and user password (variable) from command line arguments.
+Then using those incoming values, create the right URL for the db to have the server connect to.
+This opened up some weird typing moments. 
+The one that still haunts me is that when grabbing the CLA and pushing them to my info Vec, I have to convert them to_string().
+But then when I set them to variables to create the actual "url", I have to cast them as_str().
+My hunch is that this is totally redundant. 
+If they come in from the CLA as str already, I should be able to just use them as is.
+But doing this broke things, so I'll shelve that task for later when I have a little more time to dive into the rust docs.
+
+
 
 # Things this project helped me practice and learn
 - Rust Web server/router setup

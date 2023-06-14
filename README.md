@@ -1,19 +1,24 @@
 # Rustys Root Review
 Kira Klingenberg
 
+A web microservice built in Rust for the Animal Crossing New Horizons Turnip Trading site: Tuber Trader. 
 
-A web microservice built in Rust for the in-development Animal Crossing New Horizons Turnip Trading site: Tuber Trader. 
+This version of rustys-root-review is a standalone service that will create a mock postgres  database representative of Tuber Traders 'tuber' database, and run the service against that mock db.
 
+The crate ```create_mock_db``` is responsible for generating the mock, pre-seeded, database tables.
+
+The crate ```root_review``` is the actual service: complete with axum server, toxio runtime, CLA processing, and HTTP routes.
+
+This microservice will query the database table for "Profile" and run simple analysis on the turnips held by each island. 
+
+The fully integrated code for this microservice can be found in the repo for tuberTrader:
 https://github.com/kiraoyd/tuberTrader
 
-This microservice will query Tuber Trader's Database table for "Profiles" and run simple analysis on the turnips held by each island. 
+Instructions on how to run this standalone project are below:
 
-More will be added as development proceeds. Repo is currently Private and will be made public eventually.
+# Instructions
 
-
-# As of 6/13/2023
-
-### ----- Please ignore the Docker files for now ----
+### ----- Please ignore the Docker files, and the tuber_dumpfile.sql file for now ----
 
 ## Step 1: Create a postgres database locally called 'mocktuber'
 

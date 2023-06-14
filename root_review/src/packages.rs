@@ -3,7 +3,7 @@
 //! Written for: Bart Massey's Programming in Rust, PSU Spring 2023
 //! Last update: 6/1/2023
 
-pub mod reply_data{
+pub mod reply_data {
     use serde::{Deserialize, Serialize};
 
     #[derive(sqlx::FromRow, Serialize, Deserialize)]
@@ -26,5 +26,4 @@ pub mod reply_data{
         pub selling_price: i32,
         pub profited: bool,
     }
-
 }

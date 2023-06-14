@@ -1,10 +1,8 @@
 ///All code here provided courtesy of Casey Bailey from this repo: https://github.com/kiraoyd/doggr_w23/tree/master/auth_rs
 ///With the exception of the default implementation for EnvOptions (which was provided by clippy)
 ///Notes on my understanding of how this code works can be found in JOURNAL.md, and in the doc comments
-
 use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
-//use jsonwebtoken::{DecodingKey, EncodingKey};
 
 //allow access directly to the .env file
 //NOTE: added option for database url for the hardcoded postgres creation of tuber
@@ -18,7 +16,8 @@ impl EnvOptions {
     pub fn new() -> Self {
         EnvOptions {
             database_url: std::env::var("DATABASE_URL").expect("Missing env var for DATABASE_URL"),
-            mock_tuber_db_url: std::env::var("MOCK_TUBER_DB_URL").expect("Missing env var for MOCK_TUBER_DB_URL"),
+            mock_tuber_db_url: std::env::var("MOCK_TUBER_DB_URL")
+                .expect("Missing env var for MOCK_TUBER_DB_URL"),
         }
     }
 }
@@ -55,4 +54,3 @@ where
         Self(err.into())
     }
 }
-

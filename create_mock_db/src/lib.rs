@@ -1,6 +1,10 @@
+//! Rusty's Root Review: create_mock_db crate (builds a postgres database locally that is a mockup of the real 'tuber' database)
+//! lib.rs - provides ENV access functionality and custom error handling
+//! All code here provided courtesy of Casey Bailey from this repo: https://github.com/kiraoyd/doggr_w23/tree/master/auth_rs
+//! Last update: 6/13/2023
+
 use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
-//use jsonwebtoken::{DecodingKey, EncodingKey};
 
 //allow access directly to the .env file
 //NOTE: added option for database url for the hardcoded postgres creation of tuber
@@ -14,7 +18,8 @@ impl EnvOptions {
     pub fn new() -> Self {
         EnvOptions {
             database_url: std::env::var("DATABASE_URL").expect("Missing env var for DATABASE_URL"),
-            mock_tuber_db_url: std::env::var("MOCK_TUBER_DB_URL").expect("Missing env var for MOCK_TUBER_DB_URL"),
+            mock_tuber_db_url: std::env::var("MOCK_TUBER_DB_URL")
+                .expect("Missing env var for MOCK_TUBER_DB_URL"),
         }
     }
 }
@@ -44,11 +49,10 @@ impl IntoResponse for AppError {
 
 //TODO what the heck is actually going on here?
 impl<E> From<E> for AppError
-    where
-        E: Into<anyhow::Error>,
+where
+    E: Into<anyhow::Error>,
 {
     fn from(err: E) -> Self {
         Self(err.into())
     }
 }
-
