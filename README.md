@@ -2,8 +2,15 @@
 Kira Klingenberg
 
 A web microservice built in Rust for the Animal Crossing New Horizons Turnip Trading site: Tuber Trader. 
+Tuber Trader is a site for player of Animal Crossing New Horizons. 
+In this game, every player owns an island they build up.
+On each island you can buy turnips for a certain price each week, and resell for fluctuating prices throughout the week.
+It's a bit of light gambling, with vegetables.
+Players can visit each others islands to resell turnips, if their friends have better selling prices.
+This site faciliates that process: users can create profiles for their islands and update current selling prices and other turnip related info.
 
-This version of rustys-root-review is a standalone service that will create a mock postgres  database representative of Tuber Traders 'tuber' database, and run the service against that mock db.
+This version of rustys-root-review is a standalone service that will create a simple mock postgres database representative of Tuber Traders 'tuber' database, and run the service against that mock db.
+The seeded data for this mock database is very simple. 
 
 The crate ```create_mock_db``` is responsible for generating the mock, pre-seeded, database tables.
 
@@ -14,11 +21,11 @@ This microservice will query the database table for "Profile" and run simple ana
 The fully integrated code for this microservice can be found in the repo for tuberTrader:
 https://github.com/kiraoyd/tuberTrader
 
+For information about what worked, what didn't, and the challenges overcame in this project, see the JOURNAL.md file.
+
 Instructions on how to run this standalone project are below:
 
 # Instructions
-
-### ----- Please ignore the Docker files, and the tuber_dumpfile.sql file for now ----
 
 ## Step 1: Create a postgres database locally called 'mocktuber'
 
@@ -84,7 +91,8 @@ The server should now be listening and ready...
 ## STEP 4: Hit the routes via postman
 
 https://www.postman.com/
-From the Postman application...
+
+TEST ROUTES to run from the Postman application...
 
 >...to get a JSON reply that shows the profile who spent the most on turnips, make a GET request to: **localhost:3333/spender**
 >
