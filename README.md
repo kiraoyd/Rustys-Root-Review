@@ -54,6 +54,14 @@ Bart, I also emailed you a copy of the downloaded video, just in case! :)
 
 ----------------------------------------------------
 
+### CITATIONS
+
+Citations are provided in the files as comments, and other resources are mentioned in the JOUNRAL.md file.
+
+I'd like to double cite Casey Bailey here as well. 
+The template for the server, router, and AppError work in the root_review crate came directly from his doggr_w23 repo example: auth_rs.
+A copy of this repo can be found here: https://github.com/kiraoyd/doggr_w23/tree/master/auth_rs
+
 ### LICENSE
 
 This work is licensed under the 'MIT License'. Please see the file LICENSE.txt in this distribution for license terms.
