@@ -30,7 +30,7 @@ Instructions on how to run this crate are provided below in the "instructions" s
 
 This routes in this crate will query the mocktuber database table for "Profile" and run simple analysis on the turnips held by each island. 
 
-The fully integrated code for the actual root_review microservice can also be found in the repo for Tuber Trader:
+The fully integrated code for the actual root_review microservice can now also be found in the repo for Tuber Trader:
 https://github.com/kiraoyd/tuberTrader
 
 ----------------------------------------------------
@@ -46,9 +46,11 @@ For information about what worked, what didn't, and the challenges overcame in t
 A demo run of the application is available in the project presentation video recorded for Bart Massey's class.
 A link to the zoom recording can be found here: 
 
-https://pdx.zoom.us/rec/share/_eJb1E-E3R8mM7QgY27Dien4JfLrVVBCWgs2jRB8dbymst9CFnzidXih7pl88VsR.qUoNw_uSmzMr_YWY?startTime=1686781961000
+https://pdx.zoom.us/rec/share/jjU8UDgne7ZcjDJ7rykIvxbaJqFip-zquT2uvE79mkjHp9DUN27ywTyRQJ1XILY.ye9yeHQlRbtrfVij?startTime=1686797618000
 
 You may need to be signed in to zoom with your pdx.edu account to view it.
+
+Bart, I also emailed you a copy of the downloaded video, just in case! :)
 
 ----------------------------------------------------
 
