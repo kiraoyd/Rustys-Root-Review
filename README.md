@@ -127,6 +127,10 @@ On the linux command line, from the root directory 'rustys-root-review' of this 
 
 ```cd root_review```
 
+Create an ENV file called ```.env```.
+
+In the ENV create a variable called "MOCK_TUBER_DB_URL", you may leave it empty, the URL string will be auto generated based off the command line args you provide in the next step.
+
  Run the crate and include command line arguments in this order: 
 
  ```cargo run mocktuber <your_postgres_user> <your_postgres_users_password> ```
